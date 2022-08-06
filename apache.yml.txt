@@ -1,0 +1,10 @@
+---
+- hosts: webservers 
+  become: True
+  tasks:
+    - name: Initiate ansible
+      debug:
+        msg:  "mvn -f /var/lib/jenkins/workspace/ansible-demo1/pom.xml clean install package"
+    - name: Initiate ansible
+      shell: "mvn -f /var/lib/jenkins/workspace/ansible-demo1/pom.xml clean install package"
+...
