@@ -6,6 +6,6 @@
       debug:
         msg:  "mvn -f /var/lib/jenkins/workspace/ansible-demo1/pom.xml clean install package"
     - name: Initiate ansible
-      when: inventory_hostname in groups['internal']
       shell: "sudo mvn -f /var/lib/jenkins/workspace/ansible-demo1/pom.xml clean"
+      delegate_to: localhost ansible_user=ubuntu
 ...
