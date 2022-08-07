@@ -4,10 +4,17 @@
   tasks:
     - name: Initiate ansible
       debug:
-        msg:  "mvn -f /var/lib/jenkins/workspace/ansible-demo1/pom.xml clean install package"
-      delegate_to: localhost
-    - name: Start application on {{ansible_hostname}}
-      command: mvn -f /var/lib/jenkins/workspace/ansible-demo/pom.xml build
-      async: 2100
+        msg:  "Initiate ansible"
+    - name: Maven clean
+      shell: "sudo mvn -f /var/lib/jenkins/workspace/ansible-demo/pom.xml clean"
+	  delegate_to: localhost
+	- name: Maven build
+      shell: "sudo mvn -f /var/lib/jenkins/workspace/ansible-demo/pom.xml build"
+	  async: 2100
       poll: 0
+      delegate_to: localhost
+	- name: Deploy the new WAR file to target servers
+      copy: src=/var/lib/jenkins/workspace/ansible-demo1/target/ansibledemo-0.0.2-SNAPSHOT.war dest=/home/ubuntu/tomcat/webapps
+	- name: Start Tomcat
+      command: wget "http://admin:admin@54.234.35.149:8080/manager/text/start?path=/ansibledemo-0.0.1-SNAPSHOT"
 ...
