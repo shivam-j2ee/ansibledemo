@@ -3,19 +3,19 @@
   become: true
   vars:
     Jenkins_Workspace: /var/lib/jenkins/workspace/ansible-demo
-	  Tomcat_URL: "http://admin:admin@54.234.35.149:8080/manager/text/start?path=/ansibledemo-0.0.2-SNAPSHOT"
+    Tomcat_URL: "http://admin:admin@54.234.35.149:8080/manager/text/start?path=/ansibledemo-0.0.2-SNAPSHOT"
   tasks:
     - name: Initiate ansible
       debug:
         msg:  "Initiate ansible"
     - name: Maven clean
       shell: "sudo mvn -f {{Jenkins_Workspace}}/pom.xml clean"
-	    delegate_to: localhost
-	  - name: Maven build
+      delegate_to: localhost
+    - name: Maven build
       shell: "sudo mvn -f {{Jenkins_Workspace}}/pom.xml build"
-	    delegate_to: localhost
-	  - name: Deploy the new WAR file to target servers
+      delegate_to: localhost
+    - name: Deploy the new WAR file to target servers
       copy: src=/var/lib/jenkins/workspace/ansible-demo/target/ansibledemo-0.0.2-SNAPSHOT.war dest=/home/ubuntu/tomcat/webapps
-	  - name: Start Tomcat
+    - name: Start Tomcat
       command: wget {{Tomcat_URL}}
 ...
