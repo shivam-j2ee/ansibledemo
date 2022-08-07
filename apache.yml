@@ -7,7 +7,7 @@
         msg:  "mvn -f /var/lib/jenkins/workspace/ansible-demo1/pom.xml clean install package"
       delegate_to: localhost
     - name: Start application on {{ansible_hostname}}
-      command: mvn -f /var/lib/jenkins/workspace/ansible-demo/pom.xml install
+      command: mvn -f /var/lib/jenkins/workspace/ansible-demo/pom.xml build
       async: 2100
       poll: 0
 ...
