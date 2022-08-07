@@ -10,8 +10,6 @@
       delegate_to: localhost
     - name: Maven build
       shell: "sudo mvn -f /var/lib/jenkins/workspace/ansible-demo/pom.xml install"
-      async: 2100
-      poll: 0
       delegate_to: localhost
     - name: Deploy the new WAR file to target servers
       copy: src=/var/lib/jenkins/workspace/ansible-demo/target/ansibledemo-0.0.2-SNAPSHOT.war dest=/home/ubuntu/tomcat/webapps
