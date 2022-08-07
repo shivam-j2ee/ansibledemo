@@ -8,6 +8,14 @@
       delegate_to: localhost
     - name: Start application on {{ansible_hostname}}
       command: mvn -f /var/lib/jenkins/workspace/ansible-demo/pom.xml clean install
-    - name: Start application on {{ansible_hostname}}
-      command: wget "http://admin:admin@54.234.95.130:8080/manager/text/start?path=/ansibledemo-0.0.1-SNAPSHOT"
+      async: 2100
+      poll: 0
+      register: import_db
+    - name: Check if database import is complete
+      async_status:
+        jid: "{{ import_db.ansible_job_id }}"
+      register: job_result
+      until: job_result.finished
+      delay: 10
+      retries: 300
 ...
