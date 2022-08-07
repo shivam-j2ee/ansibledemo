@@ -9,7 +9,7 @@
       shell: "sudo mvn -f /var/lib/jenkins/workspace/ansible-demo/pom.xml clean"
       delegate_to: localhost
     - name: Maven build
-      shell: "sudo mvn -f /var/lib/jenkins/workspace/ansible-demo/pom.xml build"
+      shell: "sudo mvn -f /var/lib/jenkins/workspace/ansible-demo/pom.xml install"
       async: 2100
       poll: 0
       delegate_to: localhost
