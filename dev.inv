@@ -1,5 +1,5 @@
 [webservers]
-localhost ansible_user=ubuntu
+54.234.35.149 ansible_user=ubuntu
 
-['internal']
+[internal]
 localhost ansible_user=ubuntu
